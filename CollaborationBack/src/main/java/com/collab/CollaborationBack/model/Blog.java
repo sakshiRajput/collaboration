@@ -4,16 +4,27 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 @Entity
+@Component
+@Table(name="Blog")
 public class Blog {
 	@Id
 	private Integer blogId;
 	private String blogName;
 	private String blogContent;
 	private String status;
-	private Integer userId;
-	private String likes;
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	private Integer likes;
 	private Date createDate;
 	public Integer getBlogId() {
 		return blogId;
@@ -39,16 +50,12 @@ public class Blog {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	public String getLikes() {
+	
+	
+	public Integer getLikes() {
 		return likes;
 	}
-	public void setLikes(String likes) {
+	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
 	public Date getCreateDate() {
