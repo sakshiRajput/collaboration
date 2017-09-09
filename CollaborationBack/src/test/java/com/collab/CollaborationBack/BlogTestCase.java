@@ -62,7 +62,7 @@ public class BlogTestCase {
     }
 	
 	
-	
+	@Ignore
 	@Test
 	public void getallapprovedblogtest()
 	{
@@ -70,5 +70,21 @@ public class BlogTestCase {
 		assertTrue("No approved blogs",listblog.size()>0);
 	}
 	
+	
+	@Test
+	public void editblog()
+	{
+		 Blog blog=new Blog();
+		
+		   blog.setBlogId(111);
+		   blog.setBlogName("secondblog");
+		   blog.setBlogContent("this is my second blog");
+		   blog.setCreateDate(new java.util.Date());
+		   blog.setLikes(0);
+		   blog.setStatus("NA");
+		   blog.setUserId("sak@gmail.com");
+		
+		 assertTrue("blog edited",blogDao.editBlog(blog));
+	}
 	
 }

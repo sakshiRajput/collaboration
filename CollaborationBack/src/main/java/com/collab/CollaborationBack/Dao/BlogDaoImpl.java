@@ -43,18 +43,54 @@ public class BlogDaoImpl implements BlogDao{
 		}
 		
 	}
-	public boolean editBlog(int blogId) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean editBlog(Blog blog) {
+		
+		try{
+		sessionFactory.getCurrentSession().update(blog);
+		System.out.println("table is updated");
+		System.out.println("id:-");
+		return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception is "+e);
+			return false;
+		}
+		
 	}
+	@Transactional
 	public boolean deleteBlog(int blogId) {
 		// TODO Auto-generated method stub
-		return false;
+		try{
+		Session session= sessionFactory.getCurrentSession();
+		Blog blog=(Blog)session.load(Blog.class, blogId);
+		session.delete(blog);
+		return true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception is "+e);
+			return false;
+		}
 	}
+	@Transactional
 	public Blog getBlog(int blogId) {
 		// TODO Auto-generated method stub
-		return null;
+		try{
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from Blog where blogid=?");
+		query.setParameter(0, blogId);
+		Blog bloglist=(Blog)query.getSingleResult();
+		return bloglist;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception is "+e);
+			return null;
+		}
 	}
+	@Transactional
 	public List<Blog> getAllBlogs() {
 		Session session=sessionFactory.openSession();
 		Query query=session.createQuery("from Blog where status='A'");
