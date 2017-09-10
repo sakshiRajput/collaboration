@@ -2,21 +2,35 @@ package com.collab.CollaborationBack.model;
 
 import java.util.Date;
 
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 @Entity
+@Component
+@Table(name="BlogComment")
 public class BlogComment {
-	
-	private Integer bcId;
+	@Id
+	private Integer blogcommentId;
 	private Integer blogId;
-	private String comment;
+	private String blogComment;
+	public String getBlogComment() {
+		return blogComment;
+	}
+	public void setBlogComment(String blogComment) {
+		this.blogComment = blogComment;
+	}
 	private Date commentDate;
 	private Integer userId;
-	public Integer getBcId() {
-		return bcId;
+	
+	public Integer getBlogcommentId() {
+		return blogcommentId;
 	}
-	public void setBcId(Integer bcId) {
-		this.bcId = bcId;
+	public void setBlogcommentId(Integer blogcommentId) {
+		this.blogcommentId = blogcommentId;
 	}
 	public Integer getBlogId() {
 		return blogId;
@@ -24,12 +38,7 @@ public class BlogComment {
 	public void setBlogId(Integer blogId) {
 		this.blogId = blogId;
 	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+	
 	public Date getCommentDate() {
 		return commentDate;
 	}

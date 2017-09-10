@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.collab.CollaborationBack.model.Blog;
+import com.collab.CollaborationBack.model.BlogComment;
 
 @Configuration
 @EnableTransactionManagement
@@ -37,6 +38,7 @@ public class DbConfig {
 		LocalSessionFactoryBuilder localSessionFactoryBuilder=new LocalSessionFactoryBuilder(getOracleDataSource());
 		localSessionFactoryBuilder.addProperties(getHibernateProperties());
 		localSessionFactoryBuilder.addAnnotatedClass(Blog.class);
+		localSessionFactoryBuilder.addAnnotatedClass(BlogComment.class);
 		return localSessionFactoryBuilder.buildSessionFactory();
 	}
 
