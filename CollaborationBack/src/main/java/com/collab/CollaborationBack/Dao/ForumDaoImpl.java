@@ -2,6 +2,8 @@ package com.collab.CollaborationBack.Dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -16,6 +18,13 @@ public class ForumDaoImpl implements ForumDao{
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	public ForumDaoImpl(SessionFactory sessionFactory)
+	{
+		this.sessionFactory=sessionFactory;
+		System.out.println("session created");
+	}
+	
+	@Transactional
 	public boolean createForum(Forum forum) {
 		try 
 		{
@@ -29,7 +38,7 @@ public class ForumDaoImpl implements ForumDao{
 		}
 		
 	}
-
+	@Transactional
 	public boolean editForum(Forum forum) {
 		try{
 			sessionFactory.getCurrentSession().update(forum);
@@ -43,7 +52,7 @@ public class ForumDaoImpl implements ForumDao{
 			}
 			
 	}
-
+	@Transactional
 	public boolean deleteForum(int forumId) {
 		try{
 			Session session= sessionFactory.getCurrentSession();
@@ -57,7 +66,7 @@ public class ForumDaoImpl implements ForumDao{
 				return false;
 			}
 	}
-
+	@Transactional
 	public Forum getForum(int forumId) {
 		try{
 			Session session=sessionFactory.getCurrentSession();
@@ -72,7 +81,7 @@ public class ForumDaoImpl implements ForumDao{
 				return null;
 			}
 	}
-
+	@Transactional
 	public List<Forum> getAllForums() {
 		try{
 		Session session=sessionFactory.openSession();

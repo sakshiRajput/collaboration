@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.BlogComment;
+import com.collab.CollaborationBack.model.Forum;
 
 @Configuration
 @EnableTransactionManagement
@@ -39,6 +40,7 @@ public class DbConfig {
 		localSessionFactoryBuilder.addProperties(getHibernateProperties());
 		localSessionFactoryBuilder.addAnnotatedClass(Blog.class);
 		localSessionFactoryBuilder.addAnnotatedClass(BlogComment.class);
+		localSessionFactoryBuilder.addAnnotatedClass(Forum.class);
 		return localSessionFactoryBuilder.buildSessionFactory();
 	}
 

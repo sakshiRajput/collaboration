@@ -1,13 +1,14 @@
 package com.collab.CollaborationBack.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="User")
 public class User {
 	
-	
+	@Id
 	private Integer userId;
 	private String firstName;
 	private String lastName;

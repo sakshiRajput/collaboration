@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -26,7 +27,7 @@ public class BlogcommentTestCase {
 		blogcommentDao=(BlogcommentDao)annotationConfigApplicationContext.getBean("blogcommentDao");
 		
 	}
-	
+    @Ignore
 	@Test
 	public void createblogcommenttest() {
 	BlogComment blogcomment=new BlogComment();
@@ -42,7 +43,7 @@ public class BlogcommentTestCase {
 		
 	}
 	
-	
+    @Ignore
 	@Test
 	public void editblogcomment()
 	{
@@ -56,14 +57,14 @@ public class BlogcommentTestCase {
 		
 		assertTrue("blogcomment edited",blogcommentDao.editBlogcomment(blogcomment));
 	}
-	
+    @Ignore	
 	@Test
 	public void getallblogcommentstest()
 	{
 		 List<BlogComment> listblogcomment=blogcommentDao.getAllBlogcomments();
 		assertTrue("No approved blogs",listblogcomment.size()>0);
 	}
-	
+    @Ignore
 	@Test
 	public void deleteblogcomment()
 	{
