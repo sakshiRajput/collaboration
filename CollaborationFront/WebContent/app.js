@@ -19,6 +19,10 @@ app.config(function($routeProvider) {
         templateUrl : 'Blog/addblog.html',
         controller:'BlogController'
     })
+      .when('/success', {
+        templateUrl : 'Home/success.html'
+    
+    })
 	.otherwise(
 	{  template:'<p>go to the corrent link..wrong address</p>'
 	});
