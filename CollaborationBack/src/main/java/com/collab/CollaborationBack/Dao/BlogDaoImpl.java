@@ -6,13 +6,14 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.collab.CollaborationBack.model.Blog;
 
 @Repository("blogDao")
+@Transactional
 public class BlogDaoImpl implements BlogDao{
 
 	
@@ -28,12 +29,16 @@ public class BlogDaoImpl implements BlogDao{
 	}
 	
 
-//	@Override
-	@Transactional
+
+	
 	public boolean createBlog(Blog blog) {
 		try 
 		{
-		sessionFactory.getCurrentSession().saveOrUpdate(blog);
+		Session s=sessionFactory.getCurrentSession();	
+		blog.setStatus("NA");
+		blog.setLikes(0);
+		s.save(blog);
+		System.out.println("Insertion succesfull ");
 		return true;
 		}
 		catch(Exception e)
@@ -43,13 +48,13 @@ public class BlogDaoImpl implements BlogDao{
 		}
 		
 	}
-	@Transactional
+	
 	public boolean editBlog(Blog blog) {
 		
 		try{
-		sessionFactory.getCurrentSession().update(blog);
+		Session session = sessionFactory.getCurrentSession();
+		session.update(blog);
 		System.out.println("table is updated");
-		System.out.println("id:-");
 		return true;
 		}
 		catch(Exception e)
@@ -59,8 +64,8 @@ public class BlogDaoImpl implements BlogDao{
 		}
 		
 	}
-	@Transactional
-	public boolean deleteBlog(int blogId) {
+	
+	public boolean deleteBlog(Integer blogId) {
 		
 		try{
 		Session session= sessionFactory.getCurrentSession();
@@ -74,14 +79,15 @@ public class BlogDaoImpl implements BlogDao{
 			return false;
 		}
 	}
-	@Transactional
-	public Blog getBlog(int blogId) {
+
+	public Blog getBlogById(Integer blogId) {
 	
 		try{
 		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("from Blog where blogid=?");
+		@SuppressWarnings("rawtypes")
+		Query query=session.createQuery("from Blog where blogId=?");
 		query.setParameter(0, blogId);
-		Blog bloglist=(Blog)query.getSingleResult();
+        Blog bloglist=(Blog)query.uniqueResult();
 		return bloglist;
 		}
 		catch(Exception e)
@@ -90,14 +96,14 @@ public class BlogDaoImpl implements BlogDao{
 			return null;
 		}
 	}
-	@Transactional
+
 	public List<Blog> getAllBlogs() {
 		Session session=sessionFactory.openSession();
 		Query query=session.createQuery("from Blog where status='A'");
 		List<Blog> listblog=query.list();
 		return listblog;
 	}
-	@Transactional
+
 	public boolean approveBlog(Blog blog) {
 		try{
 		blog.setStatus("A");
@@ -110,6 +116,17 @@ public class BlogDaoImpl implements BlogDao{
 			return false;
 		}
 		
+	}
+
+
+
+
+	public List<Blog> getBlogs(String status) {
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from Blog where status=?");
+		query.setParameter(0, status);
+		List<Blog> listblog=query.list();
+		return listblog;
 	}
 
 }

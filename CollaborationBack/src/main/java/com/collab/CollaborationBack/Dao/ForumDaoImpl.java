@@ -6,9 +6,10 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 import com.collab.CollaborationBack.model.Forum;
 
@@ -72,7 +73,7 @@ public class ForumDaoImpl implements ForumDao{
 			Session session=sessionFactory.getCurrentSession();
 			Query query=session.createQuery("from Forum where forumId=?");
 			query.setParameter(0, forumId);
-			Forum forumlist=(Forum)query.getSingleResult();
+			Forum forumlist=(Forum)query.uniqueResult();
 			return forumlist;
 			}
 			catch(Exception e)
@@ -94,6 +95,21 @@ public class ForumDaoImpl implements ForumDao{
 			System.out.println("Exception is "+e);
 			return null;
 		}
+	}
+	
+	@Transactional
+	public boolean approveforum(Forum forum) {
+		try{
+			forum.setStatus("A");
+		sessionFactory.getCurrentSession().saveOrUpdate(forum);
+		return true ;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception is "+e);
+			return false;
+		}
+		
 	}
 
 }
